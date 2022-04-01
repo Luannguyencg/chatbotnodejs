@@ -5,7 +5,8 @@ import initWebRoutes from './routes/web';
 require("dotenv").config();
 let app = express();
 
-
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended:true}))
 //config viewEngine
 
 initWebRoutes(app);
@@ -14,8 +15,7 @@ viewEngine(app);
 
 //config web routes
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended:true}))
+
 
 let port = process.env.PORT || 6969;
 app.listen(port, ()=>{
