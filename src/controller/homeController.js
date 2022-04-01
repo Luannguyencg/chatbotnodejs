@@ -1,5 +1,6 @@
 require("dotenv").config();
 import request from "request";
+import { chatbotService } from "../services/chatbotService";
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN
 class homeController {
@@ -146,13 +147,21 @@ function handlePostback(sender_psid, received_postback) {
     let payload = received_postback.payload;
 
     // Set the response based on the postback payload
-    if (payload === 'yes') {
-        response = { "text": "Thanks!" }
-    } else if (payload === 'no') {
-        response = { "text": "Oops, try sending another image." }
-    }else if(payload === 'GET_STARTED'){
-        response = { "text": "ok. xin chào mừng bạn abc đến với page của Luân"}
+    switch (payload) {
+        case 'yes':
+            response = { "text": "Thanks!" }
+            break;
+        case 'no':
+            response = { "text": "Oops, try sending another image." }
+            break;
+        case 'GET_STARTED':
+            chatbotService.handleGetStarted(sender_psid)
+            break;
+        
+        default:
+            response = {"text":`opp! idont know ressponse with postback ${payload}`}    
     }
+    
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
 }
