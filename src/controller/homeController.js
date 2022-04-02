@@ -228,6 +228,9 @@ async function handlePostback(sender_psid, received_postback) {
         case 'VIEW_DOG':    
             // await chatbotService.handleSendGenerrale(sender_psid)
             break;
+        case 'BACK_TO_MAIN_MENU':    
+            // await chatbotService.handleSendGenerrale(sender_psid)
+            break;
 
         default:
             response = { "text": `opp! idont know ressponse with postback ${payload}` }

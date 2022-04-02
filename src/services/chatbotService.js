@@ -7,6 +7,7 @@ const IMAGE_MAIN_MENU2 = 'https://bit.ly/luanmycvdt3'
 const IMAGE_MAIN_MENU3 = 'https://bit.ly/luanmycvdt4'
 const IMAGE_MAIN_MENU4 = 'https://bit.ly/luanmycvdt5'
 const IMAGE_MAIN_MENU5 = 'https://bit.ly/luanmycvdt6'
+const IMAGE_BACK_MAIN_MENU5 = 'https://bit.ly/luanmycvdt7'
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN
 let callSendAPI = (sender_psid, response) => {
     // Construct the message body
@@ -244,6 +245,19 @@ let getlunchMenuTemplate = () => {
                                 "type": "postback",
                                 "title": "XEM CHI TIÉT",
                                 "payload": "VIEW_DOG",
+                            },
+
+                        ],
+                    },
+                    {
+                        "title": "Trở lại",
+                        "subtitle": "Trở lại menu chính",
+                        "image_url": IMAGE_BACK_MAIN_MENU5,
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "TRỞ LẠI",
+                                "payload": "BACK_TO_MAIN_MENU",
                             },
 
                         ],
