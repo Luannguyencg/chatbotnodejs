@@ -30,14 +30,14 @@ let callSendAPI = (sender_psid, response) =>{
 let handleGetStarted = (sender_psid)=>{
     return new Promise(async (resolve, reject) =>{
         try{
-            let username = await getUserName(sender_psid);
-            let response1 = {"text": `ok. Xin chào mừng bạn ${username} đến với page của Luân`};
-            let response2 = sendGetStatedTemplate()
+            // let username = await getUserName(sender_psid);${username}
+            let response1 = {"text": `ok. Xin chào mừng bạn  đến với page của Luân`};
+            // let response2 = sendGetStatedTemplate()
             
             
             await callSendAPI(sender_psid, response1);
             
-            await callSendAPI(sender_psid, response2);
+            // await callSendAPI(sender_psid, response2);
             resolve('done');
         }catch(e){
             reject(e);

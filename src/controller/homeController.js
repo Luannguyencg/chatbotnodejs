@@ -8,6 +8,32 @@ class homeController {
         return res.render('homepage.ejs')
     }
 
+    async postSetupProfile(req, res) {
+        //call api facebook
+        let request_body = {
+            "get_started": { "payload": "GET_STARTED" },
+            "whitelisted_domains": ["https://luan-app-mess-bot-mycv.herokuapp.com/"]
+        }
+
+        // Send the HTTP request to the Messenger Platform
+
+        await request({
+            "uri": `https://graph.facebook.com/v13.0/me/messenger_profile?access_token=${PAGE_ACCESS_TOKEN}`,
+            "qs": { "access_token": PAGE_ACCESS_TOKEN },
+            "method": "POST",
+            "json": request_body
+        }, (err, res, body) => {
+            
+            if (!err) {
+                console.log('setup is success')
+            } else {
+                console.error("Unable to set up is:" + err);
+            }
+        });
+
+        return res.send("setup is success")
+    }
+
     postWebhook(req, res) {
         let body = req.body;
 
@@ -66,30 +92,7 @@ class homeController {
         }
     }
 
-    async postSetupProfile(req, res) {
-        //call api facebook
-        let request_body = {
-            "get_started": { "payload": "GET_STARTED" },
-            "whitelisted_domains": ["https://luan-app-mess-bot-mycv.herokuapp.com/"]
-        }
-
-        // Send the HTTP request to the Messenger Platform
-
-        await request({
-            "uri": `https://graph.facebook.com/v13.0/me/messenger_profile?access_token=${PAGE_ACCESS_TOKEN}`,
-            "qs": { "access_token": PAGE_ACCESS_TOKEN },
-            "method": "POST",
-            "json": request_body
-        }, (err, res, body) => {
-            if (!err) {
-                console.log('set up is success')
-            } else {
-                console.error("Unable to set up is:" + err);
-            }
-        });
-
-        return res.send("setupuse")
-    }
+    
 
 }
 function handleMessage(sender_psid, received_message) {
@@ -137,7 +140,7 @@ function handleMessage(sender_psid, received_message) {
 }
 
 // Handles messaging_postbacks events
-function handlePostback(sender_psid, received_postback) {
+async function  handlePostback  (sender_psid, received_postback) {
     let response;
 
     // Get the payload for the postback
@@ -152,7 +155,7 @@ function handlePostback(sender_psid, received_postback) {
             response = { "text": "Oops, try sending another image." }
             break;
         case 'GET_STARTED':
-            chatbotService.handleGetStarted(sender_psid)
+            await chatbotService.handleGetStarted(sender_psid)
             break;
 
         default:
