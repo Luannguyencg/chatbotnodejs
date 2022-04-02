@@ -2,7 +2,11 @@ require("dotenv").config();
 import request from "request";
 
 const IMAGE_GET_STARTED = 'https://bit.ly/luan-botchat1'
-
+const IMAGE_MAIN_MENU1 = 'https://bit.ly/luanmycvdt2'
+const IMAGE_MAIN_MENU2 = 'https://bit.ly/luanmycvdt3'
+const IMAGE_MAIN_MENU3 = 'https://bit.ly/luanmycvdt4'
+const IMAGE_MAIN_MENU4 = 'https://bit.ly/luanmycvdt5'
+const IMAGE_MAIN_MENU5 = 'https://bit.ly/luanmycvdt6'
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN
 let callSendAPI = (sender_psid, response) => {
     // Construct the message body
@@ -131,7 +135,7 @@ let getMainMenuTemplate = () => {
                     {
                         "title": "Menu dịch vụ page",
                         "subtitle": "Chúng tôi hân hạnh mang lại dịch vụ tốt nhất cho bạn",
-                        "image_url": IMAGE_GET_STARTED,
+                        "image_url": IMAGE_MAIN_MENU1,
                         "buttons": [
                             {
                                 "type": "postback",
@@ -153,14 +157,14 @@ let getMainMenuTemplate = () => {
                     {
                         "title": "Giờ mở cửa",
                         "subtitle": "T2 -T6 7AM - 11PM | ",
-                        "image_url": IMAGE_GET_STARTED,
+                        "image_url": IMAGE_MAIN_MENU2,
                         "buttons": [
                             {
                                 "type": "postback",
                                 "title": "Đặt lịch",
                                 "payload": "RESERVE",
                             },
-                           
+
                         ],
                     },
                     {
@@ -173,7 +177,7 @@ let getMainMenuTemplate = () => {
                                 "title": "CHI TIÉT",
                                 "payload": "SHOW",
                             },
-                            
+
                         ],
                     },
                 ]
@@ -184,9 +188,143 @@ let getMainMenuTemplate = () => {
     return response;
 }
 
+let handleSendMedicalTest = (sender_psid) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response1 = getlunchMenuTemplate()
+
+            await callSendAPI(sender_psid, response1);
+
+
+            resolve('done');
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+let getlunchMenuTemplate = () => {
+    let response = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [
+                    {
+                        "title": "Món tráng miệng",
+                        "subtitle": "Nhà hàng có nhiều món tráng miệng hấp dẫn",
+                        "image_url": IMAGE_MAIN_MENU3,
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "XEM CHI TIÉT",
+                                "payload": "VIEW_APPETIZERS",
+                            },
+
+                        ],
+                    },
+                    {
+                        "title": "Cá koi",
+                        "subtitle": "Nhà hàng có nhiều món cá hấp dẫn",
+                        "image_url": IMAGE_MAIN_MENU4,
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "XEM CHI TIÉT",
+                                "payload": "VIEW_FISH",
+                            },
+
+                        ],
+                    },
+                    {
+                        "title": "Thịt chó",
+                        "subtitle": "Đảm bảo chất lượng hàng đầu",
+                        "image_url": IMAGE_MAIN_MENU5,
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "XEM CHI TIÉT",
+                                "payload": "VIEW_DOG",
+                            },
+
+                        ],
+                    },
+                ]
+            }
+        }
+    }
+
+    return response;
+}
+let getDinnerMenuTemplate = () => {
+    let response = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [{
+                    "title": "xin chào bạn đến với page của tôi",
+                    "subtitle": "dưới đây là các dịch vụ của tôi.",
+                    "image_url": IMAGE_GET_STARTED,
+                    "buttons": [
+                        {
+                            "type": "postback",
+                            "title": "MENU CHÍNH",
+                            "payload": "MAIN_MANU",
+                        },
+                        {
+                            "type": "postback",
+                            "title": "ĐẶT DỊCH VỤ",
+                            "payload": "RESERVE",
+                        },
+                        {
+                            "type": "postback",
+                            "title": "HƯỚNG DẨN SỬ DỤNG",
+                            "payload": "GUIDE_TO_USE",
+                        }
+                    ],
+                }]
+            }
+        }
+    }
+
+    return response;
+}
+let handleSendDentale = (sender_psid) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response1 = getDinnerMenuTemplate()
+
+            await callSendAPI(sender_psid, response1);
+
+
+            resolve('done');
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
+// let handleSendGenerrale = (sender_psid) =>{
+//     return new Promise(async (resolve, reject) => {
+//         try {
+//             let response1 = getMainMenuTemplate()
+
+//             await callSendAPI(sender_psid, response1);
+
+
+//             resolve('done');
+//         } catch (e) {
+//             reject(e);
+//         }
+//     })
+// }
+
 
 module.exports = {
     handleGetStarted,
     callSendAPI,
-    handleSendMainMenu
+    handleSendMainMenu,
+    handleSendMedicalTest,
+    handleSendDentale,
+    // handleSendGenerrale
 }

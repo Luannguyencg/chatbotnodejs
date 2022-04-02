@@ -210,6 +210,24 @@ async function handlePostback(sender_psid, received_postback) {
         case 'MAIN_MANU':    
             await chatbotService.handleSendMainMenu(sender_psid)
             break;
+        case 'MEDICAL_TEST':    
+            await chatbotService.handleSendMedicalTest(sender_psid)
+            break;
+        case 'DENTALE_EXAMINATION':    
+            await chatbotService.handleSendDentale(sender_psid)
+            break;
+        case 'GENERRALE':    
+            await chatbotService.handleSendGenerrale(sender_psid)
+            break;
+        case 'VIEW_APPETIZERS':    
+            // await chatbotService.handleSendGenerrale(sender_psid)
+            break;
+        case 'VIEW_FISH':    
+            // await chatbotService.handleSendGenerrale(sender_psid)
+            break;
+        case 'VIEW_DOG':    
+            // await chatbotService.handleSendGenerrale(sender_psid)
+            break;
 
         default:
             response = { "text": `opp! idont know ressponse with postback ${payload}` }
