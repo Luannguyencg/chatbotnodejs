@@ -1,6 +1,6 @@
 require("dotenv").config();
 import request from "request";
-import  chatbotService  from "../services/chatbotService";
+import chatbotService from "../services/chatbotService";
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN
 class homeController {
@@ -23,7 +23,7 @@ class homeController {
             "method": "POST",
             "json": request_body
         }, (err, res, body) => {
-            
+
             if (!err) {
                 console.log('setup is success')
             } else {
@@ -32,6 +32,54 @@ class homeController {
         });
 
         return res.send("setup is success")
+    }
+    async postSetupPersistentMenu(req, res) {
+        //call api facebook
+        let request_body = {
+            "persistent_menu": [
+                {
+                    "locale": "default",
+                    "composer_input_disabled": false,
+                    "call_to_actions": [
+                        {
+                            "type": "web_url",
+                            "title": "Youtube channel Luân",
+                            "url": "https://www.facebook.com/Lu-an-entertainment-111011064897803/",
+                            "webview_height_ratio": "full"
+                        },
+                        {
+                            "type": "web_url",
+                            "title": "Facebook page Luân Nguyễn",
+                            "url": "https://www.facebook.com/Lu-an-entertainment-111011064897803/",
+                            "webview_height_ratio": "full"
+                        },
+                        {
+                            "type": "postback",
+                            "title": "khởi động lại-bot",
+                            "payload": "RESTART_BOT"
+                        }
+                    ]
+                }
+            ]
+        }
+
+        // Send the HTTP request to the Messenger Platform
+
+        await request({
+            "uri": `https://graph.facebook.com/v13.0/me/messenger_profile?access_token=${PAGE_ACCESS_TOKEN}`,
+            "qs": { "access_token": PAGE_ACCESS_TOKEN },
+            "method": "POST",
+            "json": request_body
+        }, (err, res, body) => {
+
+            if (!err) {
+                console.log('setup is persistent menu success')
+            } else {
+                console.error("Unable to set up is:" + err);
+            }
+        });
+
+        return res.send("setup persistent menu is success")
     }
 
     postWebhook(req, res) {
@@ -92,7 +140,7 @@ class homeController {
         }
     }
 
-    
+
 
 }
 function handleMessage(sender_psid, received_message) {
@@ -140,7 +188,7 @@ function handleMessage(sender_psid, received_message) {
 }
 
 // Handles messaging_postbacks events
-async function  handlePostback  (sender_psid, received_postback) {
+async function handlePostback(sender_psid, received_postback) {
     let response;
 
     // Get the payload for the postback
@@ -154,7 +202,9 @@ async function  handlePostback  (sender_psid, received_postback) {
         case 'no':
             response = { "text": "Oops, try sending another image." }
             break;
+
         case 'GET_STARTED':
+        case 'RESTART_BOT':    
             await chatbotService.handleGetStarted(sender_psid)
             break;
 

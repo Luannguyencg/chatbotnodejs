@@ -58,7 +58,7 @@ let handleGetStarted = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
             let userName = await getUserName(sender_psid);
-            let response1 = { "text": `ok. Xin chào mừng bạn ${userName} đến với page của Luân` };
+            let response1 = { "text": `Xin chào mừng bạn ${userName} đến với page của Luân` };
             let response2 = sendGetStatedTemplate()
 
 
