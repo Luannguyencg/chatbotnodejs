@@ -336,28 +336,60 @@ let getDinnerMenuTemplate = () => {
             "type": "template",
             "payload": {
                 "template_type": "generic",
-                "elements": [{
-                    "title": "xin chào bạn đến với page của tôi",
-                    "subtitle": "dưới đây là các dịch vụ của tôi.",
-                    "image_url": IMAGE_GET_STARTED,
-                    "buttons": [
-                        {
-                            "type": "postback",
-                            "title": "MENU CHÍNH",
-                            "payload": "MAIN_MANU",
-                        },
-                        {
-                            "type": "postback",
-                            "title": "ĐẶT DỊCH VỤ",
-                            "payload": "RESERVE",
-                        },
-                        {
-                            "type": "postback",
-                            "title": "HƯỚNG DẨN SỬ DỤNG",
-                            "payload": "GUIDE_TO_USE",
-                        }
-                    ],
-                }]
+                "elements": [
+                    {
+                        "title": "Món tráng miệng",
+                        "subtitle": "Nhà hàng có nhiều món tráng miệng hấp dẫn",
+                        "image_url": IMAGE_MAIN_MENU3,
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "XEM CHI TIÉT",
+                                "payload": "VIEW_APPETIZERS",
+                            },
+
+                        ],
+                    },
+                    {
+                        "title": "Cá koi",
+                        "subtitle": "Nhà hàng có nhiều món cá hấp dẫn",
+                        "image_url": IMAGE_MAIN_MENU4,
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "XEM CHI TIÉT",
+                                "payload": "VIEW_FISH",
+                            },
+
+                        ],
+                    },
+                    {
+                        "title": "Thịt chó",
+                        "subtitle": "Đảm bảo chất lượng hàng đầu",
+                        "image_url": IMAGE_MAIN_MENU5,
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "XEM CHI TIÉT",
+                                "payload": "VIEW_DOG",
+                            },
+
+                        ],
+                    },
+                    {
+                        "title": "Trở lại",
+                        "subtitle": "Trở lại menu chính",
+                        "image_url": IMAGE_BACK_MAIN_MENU5,
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "TRỞ LẠI",
+                                "payload": "BACK_TO_MAIN_MENU",
+                            },
+
+                        ],
+                    },
+                ]
             }
         }
     }
