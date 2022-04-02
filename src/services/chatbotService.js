@@ -4,7 +4,7 @@ import request from "request";
 const IMAGE_GET_STARTED = 'https://bit.ly/luan-botchat1'
 
 
-function callSendAPI(sender_psid, response) {
+let callSendAPI = (sender_psid, response) =>{
     // Construct the message body
     let request_body = {
         "recipient": {
@@ -83,5 +83,4 @@ let sendGetStatedTemplate =()=>{
 module.exports = {
     handleGetStarted,
     callSendAPI
-   
 }
