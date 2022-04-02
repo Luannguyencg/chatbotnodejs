@@ -332,7 +332,9 @@ let handleSendDentale = (sender_psid) => {
 //         }
 //     })
 // }
-
+let handleBackToMainMenu = async(sender_psid)=>{
+   await handleSendMainMenu(sender_psid)
+}
 
 module.exports = {
     handleGetStarted,
@@ -341,4 +343,5 @@ module.exports = {
     handleSendMedicalTest,
     handleSendDentale,
     // handleSendGenerrale
+    handleBackToMainMenu
 }
