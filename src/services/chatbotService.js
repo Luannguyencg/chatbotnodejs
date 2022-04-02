@@ -3,8 +3,8 @@ import request from "request";
 
 const IMAGE_GET_STARTED = 'https://bit.ly/luan-botchat1'
 
-
-let callSendAPI = (sender_psid, response) =>{
+const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN
+let callSendAPI = (sender_psid, response) => {
     // Construct the message body
     let request_body = {
         "recipient": {
@@ -15,8 +15,8 @@ let callSendAPI = (sender_psid, response) =>{
 
     // Send the HTTP request to the Messenger Platform
     request({
-        "uri": "https://graph.facebook.com/v2.6/me/messages",
-        "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
+        "uri": "https://graph.facebook.com/v9.0/me/messages",
+        "qs": { "access_token": PAGE_ACCESS_TOKEN },
         "method": "POST",
         "json": request_body
     }, (err, res, body) => {
@@ -27,26 +27,49 @@ let callSendAPI = (sender_psid, response) =>{
         }
     });
 }
-let handleGetStarted = (sender_psid)=>{
-    return new Promise(async (resolve, reject) =>{
-        try{
-            // let username = await getUserName(sender_psid);${username}
-            let response1 = {"text": `ok. Xin chào mừng bạn  đến với page của Luân`};
-            // let response2 = sendGetStatedTemplate()
-            
-            
+
+
+let getUserName = async (sender_psid, response) => {
+    let userName = ''
+    // Send the HTTP request to the Messenger Platform
+    await request({
+        "uri": `https://graph.facebook.com/${sender_psid}?fields=first_name,last_name,profile_pic&access_token=${PAGE_ACCESS_TOKEN}`,
+        "qs": { "access_token": PAGE_ACCESS_TOKEN },
+        "method": "GET",
+
+    }, (err, res, body) => {
+        if (!err) {
+            let response = JSON.parse(res);
+            // "first_name": "Peter",
+            //     "last_name": "Chang",
+            userName = `${response.last_name} ${response.first_name}`
+            console.log('message sent!')
+        } else {
+            console.error("Unable to send message:" + err);
+        }
+    });
+    return userName
+}
+let handleGetStarted = (sender_psid) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let userName = await getUserName(sender_psid);
+            let response1 = { "text": `ok. Xin chào mừng bạn ${userName} đến với page của Luân` };
+            let response2 = sendGetStatedTemplate()
+
+
             await callSendAPI(sender_psid, response1);
-            
-            // await callSendAPI(sender_psid, response2);
+
+            await callSendAPI(sender_psid, response2);
             resolve('done');
-        }catch(e){
+        } catch (e) {
             reject(e);
         }
     })
 }
 
-let sendGetStatedTemplate =()=>{
-    let  response = {
+let sendGetStatedTemplate = () => {
+    let response = {
         "attachment": {
             "type": "template",
             "payload": {
