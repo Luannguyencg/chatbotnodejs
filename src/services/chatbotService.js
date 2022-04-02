@@ -8,6 +8,19 @@ const IMAGE_MAIN_MENU3 = 'https://bit.ly/luanmycvdt4'
 const IMAGE_MAIN_MENU4 = 'https://bit.ly/luanmycvdt5'
 const IMAGE_MAIN_MENU5 = 'https://bit.ly/luanmycvdt6'
 const IMAGE_BACK_MAIN_MENU5 = 'https://bit.ly/luanmycvdt7'
+
+const IMAGE_DETAIL_APPERTIZER_1 = 'https://bit.ly/luanmycvdt8'
+const IMAGE_DETAIL_APPERTIZER_2 = 'https://bit.ly/luanmycvdt9'
+const IMAGE_DETAIL_APPERTIZER_3 = 'https://bit.ly/luanmycvdt10'
+
+const IMAGE_DETAIL_FISH_1 = 'https://bit.ly/luanmycvdt11'
+const IMAGE_DETAIL_FISH_2 = 'https://bit.ly/luanmycvdt12'
+const IMAGE_DETAIL_FISH_3 = 'https://bit.ly/luanmycvdt13'
+
+const IMAGE_DETAIL_DOG_1 = 'https://bit.ly/luanmycvdt14'
+const IMAGE_DETAIL_DOG_2 = 'https://bit.ly/luanmycvdt15'
+const IMAGE_DETAIL_DOG_3 = 'https://bit.ly/luanmycvdt16'
+
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN
 let callSendAPI = (sender_psid, response) => {
     // Construct the message body
@@ -332,9 +345,189 @@ let handleSendDentale = (sender_psid) => {
 //         }
 //     })
 // }
-let handleBackToMainMenu = async(sender_psid)=>{
-   await handleSendMainMenu(sender_psid)
+let handleBackToMainMenu = async (sender_psid) => {
+    await handleSendMainMenu(sender_psid)
 }
+let handleDetailViewAppetizers = async (sender_psid) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response1 = getDetailViewAppetizersTemplate()
+
+            await callSendAPI(sender_psid, response1);
+
+
+            resolve('done');
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+let getDetailViewAppetizersTemplate = () => {
+    let response = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [
+                    {
+                        "title": "Dưa hấu không gian",
+                        "subtitle": "50.000đ/dĩa",
+                        "image_url": IMAGE_DETAIL_APPERTIZER_1,
+                        
+                    },
+                    {
+                        "title": "Xoài thời gian",
+                        "subtitle": "100.000đ/dĩa",
+                        "image_url": IMAGE_DETAIL_APPERTIZER_2,
+                       
+                    },
+                    {
+                        "title": "Bánh bao",
+                        "subtitle": "200.000đ/suất",
+                        "image_url": IMAGE_DETAIL_APPERTIZER_3,
+                        
+                    },
+                    {
+                        "title": "Trở lại",
+                        "subtitle": "Trở lại menu chính",
+                        "image_url": IMAGE_BACK_MAIN_MENU5,
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "TRỞ LẠI",
+                                "payload": "BACK_TO_MAIN_MENU",
+                            },
+
+                        ],
+                    },
+                ]
+            }
+        }
+    }
+
+    return response;
+}
+let handleDetailViewFish = async (sender_psid) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response1 = getDetailDetailViewFishTemplate()
+
+            await callSendAPI(sender_psid, response1);
+
+
+            resolve('done');
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+let getDetailDetailViewFishTemplate = () => {
+    let response = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [
+                    {
+                        "title": "Cá bảy màu",
+                        "subtitle": "150.000đ/dĩa",
+                        "image_url": IMAGE_DETAIL_FISH_1,
+                        
+                    },
+                    {
+                        "title": "Cá koi",
+                        "subtitle": "1000.000đ/dĩa",
+                        "image_url": IMAGE_DETAIL_FISH_2,
+                       
+                    },
+                    {
+                        "title": "Cá heo siêu nhân",
+                        "subtitle": "200.000đ/suất",
+                        "image_url": IMAGE_DETAIL_FISH_3,
+                        
+                    },
+                    {
+                        "title": "Trở lại",
+                        "subtitle": "Trở lại menu chính",
+                        "image_url": IMAGE_BACK_MAIN_MENU5,
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "TRỞ LẠI",
+                                "payload": "BACK_TO_MAIN_MENU",
+                            },
+
+                        ],
+                    },
+                ]
+            }
+        }
+    }
+
+    return response;
+}
+let handleDetailViewDog = async (sender_psid) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response1 = getDetailDetailViewDogTemplate()
+
+            await callSendAPI(sender_psid, response1);
+
+
+            resolve('done');
+        } catch (e) {
+            reject(e);
+        }
+    })
+}  
+
+let getDetailDetailViewDogTemplate = () => {
+    let response = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [
+                    {
+                        "title": "Chó không gian",
+                        "subtitle": "50.000đ/dĩa",
+                        "image_url": IMAGE_DETAIL_DOG_1,
+                        
+                    },
+                    {
+                        "title": "Chó ngao tây tạng",
+                        "subtitle": "100.000đ/dĩa",
+                        "image_url": IMAGE_DETAIL_DOG_2,
+                       
+                    },
+                    {
+                        "title": "Lòng chó xù xào măng",
+                        "subtitle": "200.000đ/suất",
+                        "image_url": IMAGE_DETAIL_DOG_3,
+                        
+                    },
+                    {
+                        "title": "Trở lại",
+                        "subtitle": "Trở lại menu chính",
+                        "image_url": IMAGE_BACK_MAIN_MENU5,
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "TRỞ LẠI",
+                                "payload": "BACK_TO_MAIN_MENU",
+                            },
+
+                        ],
+                    },
+                ]
+            }
+        }
+    }
+
+    return response;
+}
+
+
 
 module.exports = {
     handleGetStarted,
@@ -343,5 +536,8 @@ module.exports = {
     handleSendMedicalTest,
     handleSendDentale,
     // handleSendGenerrale
-    handleBackToMainMenu
+    handleBackToMainMenu,
+    handleDetailViewAppetizers,
+    handleDetailViewFish,
+    handleDetailViewDog,
 }
