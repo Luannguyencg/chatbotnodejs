@@ -82,5 +82,6 @@ let sendGetStatedTemplate =()=>{
 
 module.exports = {
     handleGetStarted,
+    callSendAPI
    
 }
